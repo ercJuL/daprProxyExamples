@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
         - 
-          image: docker.cnb.cool/ercjul/daprProxyExamples/grpcserver:latest
+          image: docker.cnb.cool/ercjul/daprproxyexamples/grpcserver:latest
           imagePullPolicy: Always
           name: grpc-server
           ports:

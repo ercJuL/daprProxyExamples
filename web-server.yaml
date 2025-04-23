@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
         - 
-          image: docker.cnb.cool/ercjul/daprProxyExamples/webserver:latest
+          image: docker.cnb.cool/ercjul/daprproxyexamples/webserver:latest
           imagePullPolicy: Always
           name: web-server
           ports:
