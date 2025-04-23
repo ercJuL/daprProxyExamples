@@ -8,7 +8,7 @@ master:
         - name: docker login
           script:
             - docker login -u ${CNB_TOKEN_USER_NAME} -p "${CNB_TOKEN}" ${CNB_DOCKER_REGISTRY}
-        - name: grpc-server
+        - name: grpc-server1
           env:
             IMAGE_NAME: ${CNB_REPO_SLUG_LOWERCASE}/grpcserver
           script:
