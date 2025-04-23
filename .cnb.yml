@@ -1,0 +1,24 @@
+master:
+  push:
+    - services:
+        - docker
+      docker:
+        image: mcr.microsoft.com/dotnet/sdk:9.0
+      stages:
+        - name: docker login
+          script:
+            - docker login -u ${CNB_TOKEN_USER_NAME} -p "${CNB_TOKEN}" ${CNB_DOCKER_REGISTRY}
+        - name: grpc-server
+          env:
+            IMAGE_NAME: ${CNB_REPO_SLUG_LOWERCASE}/grpcserver
+          script:
+            - dotnet publish "./daprProxyExamples/daprProxyExamples.csproj" -t:PublishContainer -p:ContainerRepository="${IMAGE_NAME}"
+            - docker tag "${IMAGE_NAME}:latest" "${CNB_DOCKER_REGISTRY}/${IMAGE_NAME}:latest"
+            - docker push "${CNB_DOCKER_REGISTRY}/${IMAGE_NAME}:latest"
+        - name: web-server
+          env:
+            IMAGE_NAME: ${CNB_REPO_SLUG_LOWERCASE}/webserver
+          script:
+            - dotnet publish "./WebServer/WebServer.csproj" -t:PublishContainer -p:ContainerRepository="${IMAGE_NAME}"
+            - docker tag "${IMAGE_NAME}:latest" "${CNB_DOCKER_REGISTRY}/${IMAGE_NAME}:latest"
+            - docker push "${CNB_DOCKER_REGISTRY}/${IMAGE_NAME}:latest"
