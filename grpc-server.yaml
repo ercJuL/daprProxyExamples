@@ -4,6 +4,7 @@ metadata:
   annotations:
     dapr.io/app-id: grpc-server
     dapr.io/app-port: '8080'
+    dapr.io/app-protocol: grpc
     dapr.io/config: dapr-config
     dapr.io/enable-api-logging: 'true'
     dapr.io/enabled: 'true'
@@ -27,6 +28,7 @@ spec:
         cattle.io/timestamp: '2025-04-23T14:33:58Z'
         dapr.io/app-id: grpc-server
         dapr.io/app-port: '8080'
+        dapr.io/app-protocol: grpc
         dapr.io/config: dapr-config
         dapr.io/enable-api-logging: 'true'
         dapr.io/enabled: 'true'
@@ -34,7 +36,9 @@ spec:
         app: grpc-server
     spec:
       containers:
-        - 
+        - env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Development
           image: docker.cnb.cool/ercjul/daprproxyexamples/grpcserver:latest
           imagePullPolicy: Always
           name: grpc-server
