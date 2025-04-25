@@ -29,3 +29,14 @@ while (await reply3.ResponseStream.MoveNext())
 {
     Console.WriteLine("Greeting: " + reply3.ResponseStream.Current.Message);
 }
+
+var client4 = new Greeter.GreeterClient(invoker);
+var reply4 = client3.SayHelloUnary(new HelloRequest { Name = "proxy unary from dapr invoker" },new Metadata
+{
+    { "dapr-app-id", "server" },
+    { "dapr-stream", "false" },
+});
+while (await reply3.ResponseStream.MoveNext())
+{
+    Console.WriteLine("Greeting: " + reply3.ResponseStream.Current.Message);
+}

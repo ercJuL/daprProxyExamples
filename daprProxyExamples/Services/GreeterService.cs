@@ -22,4 +22,12 @@ public class GreeterService : Greeter.GreeterBase
             await Task.Delay(1000); // Simulate some delay
         }
     }
+
+    public override async Task<HelloReply> SayHelloUnary(HelloRequest request, ServerCallContext context)
+    {
+        return new HelloReply
+        {
+            Message = "Hello " + request.Name
+        };
+    }
 }
