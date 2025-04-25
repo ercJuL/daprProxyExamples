@@ -4,14 +4,13 @@ using Grpc.Core;
 using Grpc.Net.Client;
 
 Console.WriteLine("request grpc server with direct....");
-var channel1 = GrpcChannel.ForAddress("http://localhost:8080"); // grpc-server port
+var channel1 = GrpcChannel.ForAddress("http://localhost:8080");// grpc-server port
 var client1 = new Greeter.GreeterClient(channel1);
 var reply1 = client1.SayHello(new HelloRequest { Name = "direct" });
 while (await reply1.ResponseStream.MoveNext())
 {
     Console.WriteLine("Greeting: " + reply1.ResponseStream.Current.Message);
 }
-
 
 // Console.WriteLine("request grpc server with dapr proxy....");
 // var channel2 = GrpcChannel.ForAddress("http://localhost:50001"); // dapr grpc port
@@ -31,12 +30,9 @@ while (await reply3.ResponseStream.MoveNext())
 }
 
 var client4 = new Greeter.GreeterClient(invoker);
-var reply4 = client3.SayHelloUnary(new HelloRequest { Name = "proxy unary from dapr invoker" },new Metadata
+var reply4 = client4.SayHelloUnary(new HelloRequest { Name = "proxy unary from dapr invoker" }, new Metadata
 {
     { "dapr-app-id", "server" },
     { "dapr-stream", "false" },
 });
-while (await reply3.ResponseStream.MoveNext())
-{
-    Console.WriteLine("Greeting: " + reply3.ResponseStream.Current.Message);
-}
+Console.WriteLine("Greeting: " + reply4.Message);
